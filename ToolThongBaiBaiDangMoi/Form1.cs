@@ -157,14 +157,20 @@ namespace ToolThongBaoBaiDangMoi
                             IJavaScriptExecutor javaScriptExecutor = chromeDriver;
 
                             Thread.Sleep(1000);
+                            string phone = string.Empty;
+                            try
+                            {
+                                IWebElement hidePhone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']"));
+                                hidePhone.Click();
+                                Thread.Sleep(1000);
 
-                            IWebElement hidePhone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']"));
-                            hidePhone.Click();
-                            Thread.Sleep(1000);
+                                //javaScriptExecutor.ExecuteScript("arguments[0].click()", hidePhone);
+                                phone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']")).Text.Split(':')[1].Trim();
+                            }
+                            catch
+                            {
 
-                            //javaScriptExecutor.ExecuteScript("arguments[0].click()", hidePhone);
-                            string phone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']")).Text.Split(':')[1].Trim();
-
+                            }
                             string namSanXuat = string.Empty;
                             string hopSo = string.Empty;
                             string soKmDaDi = string.Empty;
@@ -285,14 +291,21 @@ namespace ToolThongBaoBaiDangMoi
                                 IJavaScriptExecutor javaScriptExecutor = chromeDriver;
 
                                 Thread.Sleep(1000);
+                                string phone = string.Empty;
 
-                                IWebElement hidePhone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']"));
-                                hidePhone.Click();
-                                Thread.Sleep(1000);
+                                try
+                                {
+                                    IWebElement hidePhone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']"));
+                                    hidePhone.Click();
+                                    Thread.Sleep(1000);
 
-                                //javaScriptExecutor.ExecuteScript("arguments[0].click()", hidePhone);
-                                string phone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']")).Text.Split(':')[1].Trim();
+                                    //javaScriptExecutor.ExecuteScript("arguments[0].click()", hidePhone);
+                                    phone = chromeDriver.FindElement(By.XPath("//div[@class='InlineShowPhoneButton_wrapper__NtHmX']")).Text.Split(':')[1].Trim();
+                                }
+                                catch
+                                {
 
+                                }
                                 string namSanXuat = string.Empty;
                                 string hopSo = string.Empty;
                                 string soKmDaDi = string.Empty;
@@ -412,7 +425,8 @@ namespace ToolThongBaoBaiDangMoi
                             return;
                         }
 
-                        AddLogChoTot($"Chạy {listLastDataChoTotModel[indexRegion].Region} bị lỗi => chạy lại");
+                        AddLogChoTot($"Chạy {listLastDataChoTotModel[indexRegion].Region} bị lỗi => bỏ qua");
+                        indexRegion++;
                     }
                     finally
                     {
